@@ -10,7 +10,8 @@ namespace MessagesSent
     /// Date: 2026-02-20
     /// Description:
     /// WPF app that collects the number of messages sent over seven days.
-    /// The app validates input and displays daily entries.
+    /// The app validates input, displays daily entries, calculates the average,
+    /// and disables input until the user resets the application.
     /// </summary>
     public partial class MainWindow : Window
     {
@@ -27,23 +28,18 @@ namespace MessagesSent
         public MainWindow()
         {
             InitializeComponent();
-            UpdateDayDisplay();
+            ResetApp();
         }
 
         // Runs when the user clicks the Enter button
         private void btnEnter_Click(object sender, RoutedEventArgs e)
         {
-            // Validate input
             if (!TryGetValidInput(out int value))
                 return;
 
-            // Store value
             totalMessages += value;
-
-            // Display value in log
             AddEntryToLog(value);
 
-            // Move to next day (stop at Day 7 for now)
             if (currentDay < MaxDays)
             {
                 currentDay++;
@@ -53,24 +49,14 @@ namespace MessagesSent
             }
             else
             {
-                // Day 7 reached — average comes later
-                txtInput.Clear();
-                txtInput.Focus();
+                ShowAverageAndLock();
             }
         }
 
         // Runs when the user clicks the Reset button
         private void btnReset_Click(object sender, RoutedEventArgs e)
         {
-            currentDay = 1;
-            totalMessages = 0;
-
-            txtLog.Clear();
-            txtAverage.Text = "";
-            txtInput.Clear();
-
-            UpdateDayDisplay();
-            txtInput.Focus();
+            ResetApp();
         }
 
         // Runs when the user clicks the Exit button
@@ -79,13 +65,30 @@ namespace MessagesSent
             Close();
         }
 
-        // Updates the Day label
+        // Resets app back to Day 1
+        private void ResetApp()
+        {
+            currentDay = 1;
+            totalMessages = 0;
+
+            txtDayDisplay.Text = "Day 1";
+            txtLog.Clear();
+            txtAverage.Text = "";
+            txtInput.Clear();
+
+            txtInput.IsEnabled = true;
+            btnEnter.IsEnabled = true;
+
+            txtInput.Focus();
+        }
+
+        // Updates Day label
         private void UpdateDayDisplay()
         {
             txtDayDisplay.Text = $"Day {currentDay}";
         }
 
-        // Checks input is a whole number between 0 and 10000
+        // Validates input
         private bool TryGetValidInput(out int value)
         {
             value = 0;
@@ -110,7 +113,7 @@ namespace MessagesSent
             return true;
         }
 
-        // Adds a line to the log textbox
+        // Adds one entry to the log
         private void AddEntryToLog(int value)
         {
             string line = $"Day {currentDay}: {value}";
@@ -119,6 +122,18 @@ namespace MessagesSent
                 txtLog.Text = line;
             else
                 txtLog.Text += Environment.NewLine + line;
+        }
+
+        // Calculates average and locks input
+        private void ShowAverageAndLock()
+        {
+            double average = totalMessages / (double)MaxDays;
+            txtAverage.Text = $"Messages per day: {average:F1}";
+
+            txtInput.IsEnabled = false;
+            btnEnter.IsEnabled = false;
+
+            btnReset.Focus();
         }
     }
 }
