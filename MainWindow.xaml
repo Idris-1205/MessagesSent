@@ -1,4 +1,10 @@
-﻿<Window x:Class="MessagesSent.MainWindow"
+﻿<!--
+Name: Aidress Qadeer
+Course: COSC2100 – Object-Oriented Programming 2
+Assignment 1 – Messages Sent
+-->
+
+<Window x:Class="MessagesSent.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Messages Sent"

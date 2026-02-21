@@ -1,24 +1,43 @@
-﻿using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
 
 namespace MessagesSent
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Name: Aidress Qadeer
+    /// Course: COSC2100 – Object-Oriented Programming 2
+    /// Assignment: Assignment 1 – Messages Sent
+    /// Date: 2026-02-20
+    /// Description:
+    /// WPF app that collects the number of messages sent over seven days.
+    /// The app validates input, displays daily entries, calculates the average,
+    /// and disables input until the user resets the application.
     /// </summary>
     public partial class MainWindow : Window
     {
+        // Constructor: runs when the window is first created
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent(); // Loads the UI defined in MainWindow.xaml
+        }
+
+        // Runs when the user clicks the Enter button
+        private void btnEnter_Click(object sender, RoutedEventArgs e)
+        {
+            // To be added
+        }
+
+        // Runs when the user clicks the Reset button
+        // Will reset the application back to its initial state
+        private void btnReset_Click(object sender, RoutedEventArgs e)
+        {
+            // To be added
+        }
+
+        // Runs when the user clicks the Exit button
+        // Closes the application
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }
